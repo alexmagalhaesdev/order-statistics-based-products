@@ -14,6 +14,7 @@ object Repository {
   }
 
   def parseDate(date: List[String]): (LocalDateTime, LocalDateTime) = {
+    println("meu DADO", date)
     val pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     val initialData = LocalDateTime.parse(date.head, pattern)
     val finalData = LocalDateTime.parse(date.last, pattern)
@@ -32,7 +33,7 @@ object Repository {
                                 ): List[Map[String, Any]] = {
 
     val monthIntervalFormatted = monthInterval.map(_.split("-").toList)
-
+    println("entra na minha função")
     val date: (LocalDateTime, LocalDateTime) = parseDate(dataInterval)
 
     val ProductsByMonthInterval: List[Map[String, Any]] = DB readOnly {

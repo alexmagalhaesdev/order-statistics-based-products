@@ -1,4 +1,4 @@
-import db.Repository.getProductsAvailable
+import db.Repository.{getProductsAvailable, getProductsByMonthInterval}
 import scalikejdbc._
 
 import scala.Console.println
@@ -16,29 +16,24 @@ object Main extends App {
 
   val productsAvailable: List[String] = getProductsAvailable
 
-  println("\t\t\t\t Pedidos por intervalo de mês com base no produto \t\t\t\n")
+  println("\t\t\t\t Orders by month range based on product \t\t\t\n")
 
-  println(s"Produtos disponiveis: \n")
+  println(s"Available products: \n")
   println(productsAvailable.foreach(println) + "\n")
 
-  val productName: String  = readLine("Informe o nome do produto a ser buscado: ")
-////  println("nome do produto -> " + productName)
-//  val dataInterval = io.Source.stdin.getLines.toList.map(_.trim).mkString("\n")
-//
-//  print(dataInterval)
+  val productName: String  = readLine("Enter the name of the product to be searched for: example -> \"2018-01-01 00:00:00\" \"2019-01-01 00:00:00\" \n")
+  println("product's name -> " + productName)
 
-//  val monthInterval = readLine("Informe como esse intervalo será exibido em meses:  \n").split("\\(\\)").toList
-//  println(monthInterval)
-//  println(monthInterval.length)
-//  println(monthInterval.getClass)
-//  println("intervalo agrupado por mês -> " + monthInterval)
+  val dataInterval: List[String] = readLine("Enter the date range for searching: example -> (“1-3”, “4-6”, “7-12”, “>12”) \n").split(" (?=(?:\"[^\"]*\"|[^\"])*$)").toList
+  println("date informed for search -> " + dataInterval)
 
 
-  val dataInterval = List("2015-01-01 00:00:00", "2023-01-01 00:00:00")
-  val someIntervals = List("1-3", "4-6", "7-12", ">12")
+  val monthInterval: List[String] = readLine("Enter how this range will be displayed in months:  \n").split("[,()]").toList.drop(1)
+  println("range grouped by month -> " + monthInterval)
 
-//  val ProductsByMonthInterval: List[Map[String, Any]] = getProductsByMonthInterval(productName,dataInterval,someIntervals)
-//  for (e <- ProductsByMonthInterval) yield {
-//    println(s"${e("mes")} meses: ${e("pedidos")} pedidos")
-//  }
+
+  val ProductsByMonthInterval: List[Map[String, Any]] = getProductsByMonthInterval(productName,dataInterval,monthInterval)
+  for (e <- ProductsByMonthInterval) yield {
+    println(s"${e("mes")} months: ${e("pedidos")} orders")
+  }
 }
