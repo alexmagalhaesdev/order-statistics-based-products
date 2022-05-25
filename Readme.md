@@ -4,7 +4,9 @@ My Solution for the Dott Tech Test
 ## For this test use:
 
 1 --- ScalikeJDBC - ORM
+
 2 --- PostgreSQL - Database
+
 3 --- And a lot of SQL - :)
 
 ### Project structure
