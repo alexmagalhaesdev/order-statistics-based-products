@@ -8,7 +8,8 @@ object Migrations extends App {
 
   implicit val session: AutoSession.type = AutoSession
 
-  sql"""
+   sql"""
+  DROP SCHEMA IF EXISTS dott_db_test CASCADE;
   CREATE SCHEMA dott_db_test;
 
   CREATE TABLE IF NOT EXISTS dott_db_test.orders (
@@ -27,17 +28,23 @@ object Migrations extends App {
     shipping_fee numeric(10,2) NOT NULL,
     tax_rate numeric(10,2) NOT NULL,
     order_id integer not null,
-    PRIMARY KEY (id),
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    PRIMARY KEY (id)
   );
+
 
   CREATE TABLE IF NOT EXISTS dott_db_test.products (
     item_id integer not null,
     product_name character varying(50) NOT NULL,
     category  character varying(50) NOT NULL,
     price numeric(10,2) NOT NULL,
-    creation_date timestamp without time zone NOT null,
-    CONSTRAINT fk_item_id FOREIGN KEY (item_id) REFERENCES itens(id)
+    creation_date timestamp without time zone NOT null
   );
+
+  ALTER TABLE dott_db_test.itens ADD
+  FOREIGN KEY (order_id) REFERENCES dott_db_test.orders (id);
+
+
+  ALTER TABLE dott_db_test.products ADD CONSTRAINT fk_item_id
+  FOREIGN KEY (item_id) REFERENCES dott_db_test.itens(id);
   """.execute.apply()
 }
