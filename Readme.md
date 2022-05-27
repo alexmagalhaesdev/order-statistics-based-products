@@ -26,7 +26,7 @@ My Solution for the Dott Tech Test
     └── README.md                                # Project explanation
 
 ## Running an application
-#### 1 --- Change username and password in connection pool
+#### 1 --- Change database username and password in connection pool
 #### 2 --- Run Migrations and Seeds in that order respectively
 #### 3 --- Run the Main.scala file and enter the input data for the search
 #### 4 --- Wait for the result and get success with the application :)
