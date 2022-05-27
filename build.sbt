@@ -9,7 +9,7 @@ lazy val root = (project in file("."))
 
 // Scala 2.12, 2.13
 libraryDependencies ++= Seq(
-  "org.scalikejdbc" %% "scalikejdbc"       % "3.5.0",
+  "org.scalikejdbc" %% "scalikejdbc" % "3.5.0",
   "org.postgresql" % "postgresql" % "42.2.14",
-  "ch.qos.logback"  %  "logback-classic"   % "1.2.3"
+  "ch.qos.logback" % "logback-classic" % "1.2.3"
 )
