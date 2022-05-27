@@ -37,8 +37,7 @@ object Functions {
         sql"""SELECT count(id) AS pedidos,
        CASE
            WHEN to_char(order_date, 'MM') BETWEEN ${monthIntervalFormatted.head.head}
-              AND ${monthIntervalFormatted
-          .head(1)} THEN ${monthInterval.head}
+              AND ${monthIntervalFormatted.head(1)} THEN ${monthInterval.head}
            WHEN to_char(order_date, 'MM') BETWEEN ${monthIntervalFormatted(1).head}
               AND ${monthIntervalFormatted(1)(1)} THEN ${monthInterval(1)}
            WHEN to_char(order_date, 'MM') BETWEEN ${monthIntervalFormatted(2).head}

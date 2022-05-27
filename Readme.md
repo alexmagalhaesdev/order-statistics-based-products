@@ -25,6 +25,8 @@ My Solution for the Dott Tech Test
     ├── build.sbt                                # Project dependencies
     └── README.md                                # Project explanation
 
-## Observation
-#### 1 ---  Don't forget to change the database username and password in the files
-#### 2 --- Migrations and Seedings must be performed and independently of my main application !
+## Running an application
+#### 1 --- Change username and password in connection pool
+#### 2 --- Run Migrations and Seeds in that order respectively
+#### 3 --- Run the Main.scala file and enter the input data for the search
+#### 4 --- Wait for the result and get success with the application :)
