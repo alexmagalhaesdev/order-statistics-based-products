@@ -40,15 +40,15 @@ object Main extends App {
   println("date informed for search -> " + dataInterval)
 
   val monthInterval: List[String] = readLine(
-    "Enter how this range will be displayed in months:  example -> (“1-3”, “4-6”, “7-12”, “>12”) \n"
-  ).split("[,()]").toList.drop(1)
+    "Enter how this range will be displayed in months:  example -> (\"1-3\", \"4-6\", \"7-12\", \">12\") \n"
+  ).split("[,()]").toList.map(_.trim).drop(1)
   println("range grouped by month -> " + monthInterval)
 
   val orderId: List[Int] = getOrderId(productName)
 
   val ProductsByMonthInterval: List[Map[String, Any]] =
     getProductsByMonthInterval(orderId, dataInterval, monthInterval)
-  for (e <- ProductsByMonthInterval) yield {
+  for (e <- ProductsByMonthInterval) {
     println(s"${e("mes")} months: ${e("pedidos")} orders")
   }
 }

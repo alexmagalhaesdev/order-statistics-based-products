@@ -31,18 +31,26 @@ object Functions {
                                   dataInterval: (LocalDateTime, LocalDateTime),
                                   monthInterval: List[String]
                                 ): List[Map[String, Any]] = {
-    val monthIntervalFormatted = monthInterval.map(_.split("[-<>]").toList)
+    val interval = monthInterval.map(_.replaceAll("\"", ""))
+    val month = interval
+      .map(
+        _.replaceAll("<>", "")
+          .split("-")
+          .map(e => if (e.length < 2) "0" + e else e)
+          .toList
+      )
+      .dropRight(1)
     val ProductsByMonthInterval: List[Map[String, Any]] = DB readOnly {
       implicit session =>
         sql"""SELECT count(id) AS pedidos,
        CASE
-           WHEN to_char(order_date, 'MM') BETWEEN ${monthIntervalFormatted.head.head}
-              AND ${monthIntervalFormatted.head(1)} THEN ${monthInterval.head}
-           WHEN to_char(order_date, 'MM') BETWEEN ${monthIntervalFormatted(1).head}
-              AND ${monthIntervalFormatted(1)(1)} THEN ${monthInterval(1)}
-           WHEN to_char(order_date, 'MM') BETWEEN ${monthIntervalFormatted(2).head}
-              AND ${monthIntervalFormatted(2)(1)} THEN ${monthInterval(2)}
-           ELSE ${monthInterval(3)}
+           WHEN to_char(order_date, 'MM') BETWEEN ${month.head.head}
+              AND ${month.head(1)} THEN ${interval.head}
+           WHEN to_char(order_date, 'MM') BETWEEN ${month(1).head}
+              AND ${month(1)(1)} THEN ${interval(1)}
+           WHEN to_char(order_date, 'MM') BETWEEN ${month(2).head}
+              AND ${month(2)(1)} THEN ${interval(2)}
+           ELSE ${interval(3)}
        END mes
       FROM orders
       WHERE id in ($orderId) AND order_date BETWEEN ${dataInterval._1} AND ${dataInterval._2}
