@@ -1,4 +1,4 @@
-# Dott Technical Test
+# order-statistics-based-products
 My Solution for the Dott Tech Test
 
 ## For this test use:
